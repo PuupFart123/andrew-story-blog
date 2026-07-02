@@ -11,7 +11,7 @@ function escapeHTML(str) {
 }
 
 function categoryLabel(category) {
-  return category === 'book' ? 'Book' : 'Movie';
+  return category === 'book' ? '\u{1F4D6}' : '\u{1F3AC}';
 }
 
 function renderEntry(entry) {

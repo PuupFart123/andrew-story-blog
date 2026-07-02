@@ -134,30 +134,18 @@ a {
   margin-top: 20px;
 }
 
-.cta-columns {
+.cta-row {
   display: flex;
+  justify-content: center;
   gap: 22px;
   margin-top: 48px;
-}
-
-.cta-column {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-.cta-column:nth-child(1) {
-  align-items: flex-end;
-}
-
-.cta-column:nth-child(2) {
-  align-items: flex-start;
 }
 
 .secondary-cta {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
   margin-top: 22px;
 }
 
@@ -487,11 +475,9 @@ input, textarea, select, button {
 
 .future-category {
   flex-shrink: 0;
-  min-width: 60px;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-  color: #a5748a;
+  min-width: 32px;
+  font-size: 1.4rem;
+  text-align: center;
 }
 
 .future-entered-by {
@@ -554,12 +540,8 @@ input, textarea, select, button {
     flex-direction: column;
     gap: 14px;
   }
-  .cta-columns {
+  .cta-row {
     flex-direction: column;
-    align-items: center;
-  }
-  .cta-column:nth-child(1),
-  .cta-column:nth-child(2) {
     align-items: center;
   }
 }
