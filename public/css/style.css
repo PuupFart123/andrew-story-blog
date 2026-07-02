@@ -135,10 +135,15 @@ a {
 }
 
 .cta-row {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 22px;
-  margin-top: 48px;
+  max-width: 660px;
+  margin: 48px auto 0;
+}
+
+.cta-row .big-button {
+  justify-self: center;
 }
 
 .secondary-cta {
