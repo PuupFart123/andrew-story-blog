@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+
+# Runtime data (admin credentials, posts, comments, rankings) and uploaded photos.
+# The server auto-creates data/*.json and an empty admin account on first start.
+data/*.json
+public/uploads/*
+!public/uploads/.gitkeep

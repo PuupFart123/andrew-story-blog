@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Books - Andrew's Story Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="gradient-bg">
+  <canvas id="mesh-gradient-canvas"></canvas>
+
+  <header class="site-header">
+    <a class="site-title" href="index.html">Andrew's Story Blog</a>
+    <nav class="site-nav">
+      <a class="nav-pill" href="books.html">Books</a>
+      <a class="nav-pill" href="movies.html">Movies</a>
+    </nav>
+  </header>
+
+  <section class="page-heading">
+    <h1>Book Reviews</h1>
+    <p><a href="books-ranking.html">See the full ranking of books read &rarr;</a></p>
+  </section>
+
+  <div class="admin-panel" id="admin-panel" style="display:none;"></div>
+
+  <section class="posts" id="posts-container">
+    <p class="empty-state">Loading...</p>
+  </section>
+
+  <script>window.BLOG_TYPE = 'book';</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/blog.js"></script>
+  <script src="/js/mesh-gradient.js"></script>
+</body>
+</html>

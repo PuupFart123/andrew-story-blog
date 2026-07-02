@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>List of Movies Watched - Andrew's Story Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="gradient-bg">
+  <canvas id="mesh-gradient-canvas"></canvas>
+
+  <header class="site-header">
+    <a class="site-title" href="index.html">Andrew's Story Blog</a>
+    <nav class="site-nav">
+      <a class="nav-pill" href="books.html">Books</a>
+      <a class="nav-pill" href="movies.html">Movies</a>
+    </nav>
+  </header>
+
+  <section class="page-heading">
+    <h1>List of Movies Watched</h1>
+  </section>
+
+  <div class="ranking-controls">
+    <button class="sort-btn active" data-sort="recency">Sort by Recency</button>
+    <button class="sort-btn" data-sort="rating">Sort by Rating</button>
+  </div>
+
+  <div class="admin-panel" id="admin-panel" style="display:none;"></div>
+
+  <section class="ranking-list" id="ranking-list">
+    <p class="empty-state">Loading...</p>
+  </section>
+
+  <script>window.RANKING_TYPE = 'movie';</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/ranking.js"></script>
+  <script src="/js/mesh-gradient.js"></script>
+</body>
+</html>
