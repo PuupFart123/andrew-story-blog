@@ -12,8 +12,14 @@ function escapeHTML(str) {
   return div.innerHTML;
 }
 
+function updateCount(count) {
+  const countEl = document.getElementById('ranking-count');
+  if (countEl) countEl.textContent = count === 1 ? '1 entry' : `${count} entries`;
+}
+
 function renderRankings(entries) {
   const container = document.getElementById('ranking-list');
+  updateCount(entries.length);
   if (entries.length === 0) {
     container.innerHTML = '<p class="empty-state">No entries yet.</p>';
     return;

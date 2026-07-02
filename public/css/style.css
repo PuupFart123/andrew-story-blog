@@ -383,6 +383,21 @@ input, textarea, select, button {
   margin-top: 0;
 }
 
+.public-form-panel {
+  max-width: 780px;
+  margin: 0 auto 40px;
+  padding: 24px 28px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 18px;
+}
+
+.public-form-panel h3 {
+  margin-top: 0;
+}
+
 .admin-bar {
   position: fixed;
   top: 16px;
@@ -461,6 +476,29 @@ input, textarea, select, button {
 .ranking-row .rank-rating {
   font-weight: 700;
   color: #2b2b2b;
+}
+
+.ranking-count {
+  text-align: center;
+  color: #7a5f6a;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.future-category {
+  flex-shrink: 0;
+  min-width: 60px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  color: #a5748a;
+}
+
+.future-entered-by {
+  flex-shrink: 0;
+  color: #7a5f6a;
+  font-size: 0.9rem;
+  font-style: italic;
 }
 
 .empty-state {

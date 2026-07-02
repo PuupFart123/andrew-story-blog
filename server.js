@@ -55,15 +55,20 @@ const upload = multer({
   },
 });
 
-function requireAdmin(req, res, next) {
+function isAdminRequest(req) {
   const token = req.cookies && req.cookies.admin_token;
-  if (!token) return res.status(401).json({ error: 'Admin login required.' });
+  if (!token) return false;
   try {
     jwt.verify(token, JWT_SECRET);
-    next();
+    return true;
   } catch {
-    res.status(401).json({ error: 'Admin login required.' });
+    return false;
   }
+}
+
+function requireAdmin(req, res, next) {
+  if (!isAdminRequest(req)) return res.status(401).json({ error: 'Admin login required.' });
+  next();
 }
 
 // ---------- Admin auth ----------
@@ -96,17 +101,7 @@ app.post('/api/admin/logout', (req, res) => {
 });
 
 app.get('/api/admin/session', (req, res) => {
-  const token = req.cookies && req.cookies.admin_token;
-  let isAdmin = false;
-  if (token) {
-    try {
-      jwt.verify(token, JWT_SECRET);
-      isAdmin = true;
-    } catch {
-      isAdmin = false;
-    }
-  }
-  res.json({ isAdmin });
+  res.json({ isAdmin: isAdminRequest(req) });
 });
 
 // ---------- Posts (blog reviews) ----------
@@ -232,6 +227,66 @@ app.delete(
       return res.status(404).json({ error: 'Ranking entry not found.' });
     }
     await writeData('rankings', remaining);
+    res.json({ ok: true });
+  })
+);
+
+// ---------- Future watch/read list ----------
+
+app.get(
+  '/api/future',
+  asyncHandler(async (req, res) => {
+    const entries = await readData('future', []);
+    entries.sort((a, b) => new Date(b.date) - new Date(a.date));
+    res.json(entries);
+  })
+);
+
+app.post(
+  '/api/future',
+  asyncHandler(async (req, res) => {
+    const { category, title } = req.body || {};
+    if (!category || !['book', 'movie'].includes(category) || !title) {
+      return res.status(400).json({ error: 'Missing required fields.' });
+    }
+
+    const admin = isAdminRequest(req);
+    let enteredBy;
+    if (admin) {
+      const adminRecord = await getOrCreateAdmin();
+      enteredBy = adminRecord.username.charAt(0).toUpperCase() + adminRecord.username.slice(1);
+    } else {
+      enteredBy = (req.body && req.body.enteredBy || '').trim();
+      if (!enteredBy) {
+        return res.status(400).json({ error: 'Please enter your name.' });
+      }
+    }
+
+    const entries = await readData('future', []);
+    const entry = {
+      id: uuidv4(),
+      category,
+      title,
+      enteredBy,
+      isAdmin: admin,
+      date: new Date().toISOString(),
+    };
+    entries.push(entry);
+    await writeData('future', entries);
+    res.status(201).json(entry);
+  })
+);
+
+app.delete(
+  '/api/future/:id',
+  requireAdmin,
+  asyncHandler(async (req, res) => {
+    const entries = await readData('future', []);
+    const remaining = entries.filter((e) => e.id !== req.params.id);
+    if (remaining.length === entries.length) {
+      return res.status(404).json({ error: 'Entry not found.' });
+    }
+    await writeData('future', remaining);
     res.json({ ok: true });
   })
 );

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Movies - Andrew's Story Blog</title>
+  <title>Future - Andrew's Story Blog</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
@@ -23,19 +23,39 @@
   </header>
 
   <section class="page-heading">
-    <h1>Movie Reviews</h1>
-    <p><a href="movies-ranking.html">See the full ranking of movies watched &rarr;</a></p>
+    <h1>Future Watches &amp; Reads</h1>
+    <p>Things Andrew and everyone else want to get to eventually.</p>
   </section>
 
-  <div class="admin-panel" id="admin-panel" style="display:none;"></div>
+  <div class="public-form-panel" id="future-form-panel">
+    <h3>Add something to the list</h3>
+    <form id="future-form">
+      <div class="field">
+        <label for="future-category">Type</label>
+        <select id="future-category" name="category" required>
+          <option value="book">Book</option>
+          <option value="movie">Movie</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="future-title">Title</label>
+        <input id="future-title" name="title" type="text" required />
+      </div>
+      <div class="field" id="future-entered-by-field">
+        <label for="future-entered-by">Your name</label>
+        <input id="future-entered-by" name="enteredBy" type="text" required />
+      </div>
+      <div class="modal-error" id="future-error"></div>
+      <button type="submit" class="btn">Add to the list</button>
+    </form>
+  </div>
 
-  <section class="posts" id="posts-container">
+  <section class="ranking-list" id="future-list">
     <p class="empty-state">Loading...</p>
   </section>
 
-  <script>window.BLOG_TYPE = 'movie';</script>
   <script src="/js/main.js"></script>
-  <script src="/js/blog.js"></script>
+  <script src="/js/future.js"></script>
   <script src="/js/mesh-gradient.js"></script>
 </body>
 </html>
