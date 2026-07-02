@@ -143,9 +143,9 @@ a {
 
 .secondary-cta {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   margin-top: 22px;
 }
 
@@ -180,6 +180,7 @@ a {
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 14px;
   font-size: 1.05rem;
+  white-space: nowrap;
   transition: background 0.15s ease;
 }
 
@@ -541,7 +542,13 @@ input, textarea, select, button {
     gap: 14px;
   }
   .cta-row {
-    flex-direction: column;
-    align-items: center;
+    gap: 10px;
+  }
+  .big-button {
+    padding: 14px 16px;
+    font-size: 1.1rem;
+  }
+  .small-button {
+    font-size: 0.95rem;
   }
 }
