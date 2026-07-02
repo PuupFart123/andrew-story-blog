@@ -165,6 +165,20 @@ app.post(
   })
 );
 
+app.delete(
+  '/api/posts/:id',
+  requireAdmin,
+  asyncHandler(async (req, res) => {
+    const posts = await readData('posts', []);
+    const remaining = posts.filter((p) => p.id !== req.params.id);
+    if (remaining.length === posts.length) {
+      return res.status(404).json({ error: 'Post not found.' });
+    }
+    await writeData('posts', remaining);
+    res.json({ ok: true });
+  })
+);
+
 // ---------- Rankings ----------
 
 app.get(
@@ -205,6 +219,20 @@ app.post(
     rankings.push(entry);
     await writeData('rankings', rankings);
     res.status(201).json(entry);
+  })
+);
+
+app.delete(
+  '/api/rankings/:id',
+  requireAdmin,
+  asyncHandler(async (req, res) => {
+    const rankings = await readData('rankings', []);
+    const remaining = rankings.filter((r) => r.id !== req.params.id);
+    if (remaining.length === rankings.length) {
+      return res.status(404).json({ error: 'Ranking entry not found.' });
+    }
+    await writeData('rankings', remaining);
+    res.json({ ok: true });
   })
 );
 

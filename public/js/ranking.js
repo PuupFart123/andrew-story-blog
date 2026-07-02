@@ -3,6 +3,7 @@
 
 const RANKING_TYPE = window.RANKING_TYPE;
 let currentSort = 'recency';
+let isAdmin = false;
 
 function escapeHTML(str) {
   const div = document.createElement('div');
@@ -19,13 +20,23 @@ function renderRankings(entries) {
   container.innerHTML = entries
     .map(
       (entry) => `
-      <div class="ranking-row">
+      <div class="ranking-row" data-entry-id="${entry.id}">
         <span class="rank-title">${escapeHTML(entry.title)}</span>
         <span class="rank-rating">${entry.rating} / 1000</span>
+        ${isAdmin ? '<button type="button" class="delete-btn delete-rank-btn">Delete</button>' : ''}
       </div>
     `
     )
     .join('');
+
+  container.querySelectorAll('.delete-rank-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const entryId = btn.closest('.ranking-row').dataset.entryId;
+      if (!confirm('Delete this ranking entry? This cannot be undone.')) return;
+      const res = await fetch(`/api/rankings/${entryId}`, { method: 'DELETE' });
+      if (res.ok) loadRankings();
+    });
+  });
 }
 
 async function loadRankings() {
@@ -91,4 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupSortButtons();
   loadRankings();
 });
-document.addEventListener('admin-ready', renderAdminForm);
+document.addEventListener('admin-ready', () => {
+  isAdmin = true;
+  renderAdminForm();
+  loadRankings();
+});

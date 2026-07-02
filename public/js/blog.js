@@ -3,6 +3,7 @@
 
 const BLOG_TYPE = window.BLOG_TYPE;
 const CREATOR_LABEL = BLOG_TYPE === 'book' ? 'Author' : 'Director';
+let isAdmin = false;
 
 function escapeHTML(str) {
   const div = document.createElement('div');
@@ -32,10 +33,17 @@ function renderPost(post) {
   const comments = post.comments.map(renderComment).join('') ||
     '<p style="color:#999;font-size:0.9rem;">No comments yet.</p>';
 
+  const deleteButton = isAdmin
+    ? `<button type="button" class="delete-btn delete-post-btn">Delete</button>`
+    : '';
+
   return `
     <article class="post-card" data-post-id="${post.id}">
       ${photo}
-      <h2 class="post-title">${escapeHTML(post.title)}</h2>
+      <div class="post-header">
+        <h2 class="post-title">${escapeHTML(post.title)}</h2>
+        ${deleteButton}
+      </div>
       <div class="post-meta">${CREATOR_LABEL}: ${escapeHTML(post.creator)} &middot; ${formatDate(post.date)}</div>
       <div class="post-review">${escapeHTML(post.review)}</div>
       <div class="comments">
@@ -62,6 +70,15 @@ async function loadPosts() {
   }
 
   container.innerHTML = posts.map(renderPost).join('');
+
+  container.querySelectorAll('.delete-post-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const postId = btn.closest('.post-card').dataset.postId;
+      if (!confirm('Delete this review? This cannot be undone.')) return;
+      const res = await fetch(`/api/posts/${postId}`, { method: 'DELETE' });
+      if (res.ok) loadPosts();
+    });
+  });
 
   container.querySelectorAll('.comment-form').forEach((form) => {
     form.addEventListener('submit', async (e) => {
@@ -138,4 +155,8 @@ function renderAdminForm() {
 }
 
 document.addEventListener('DOMContentLoaded', loadPosts);
-document.addEventListener('admin-ready', renderAdminForm);
+document.addEventListener('admin-ready', () => {
+  isAdmin = true;
+  renderAdminForm();
+  loadPosts();
+});

@@ -136,12 +136,12 @@ a {
 
 .cta-columns {
   display: flex;
-  justify-content: center;
   gap: 22px;
   margin-top: 48px;
 }
 
 .cta-column {
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   gap: 22px;
@@ -237,9 +237,32 @@ a {
   margin-bottom: 18px;
 }
 
+.post-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .post-title {
   font-size: 1.6rem;
   margin: 0 0 4px;
+}
+
+.delete-btn {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(163, 50, 74, 0.3);
+  background: rgba(255, 255, 255, 0.4);
+  color: #a3324a;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.delete-btn:hover {
+  background: rgba(163, 50, 74, 0.12);
 }
 
 .post-meta {
@@ -418,7 +441,7 @@ input, textarea, select, button {
 .ranking-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 14px;
   background: rgba(255, 255, 255, 0.55);
   padding: 14px 22px;
   border-radius: 14px;
