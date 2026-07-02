@@ -152,8 +152,9 @@ a {
 .big-button {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 26px 46px;
+  justify-content: center;
+  width: 200px;
+  padding: 26px 16px;
   background: rgba(246, 185, 203, 0.45);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -545,8 +546,9 @@ input, textarea, select, button {
     gap: 10px;
   }
   .big-button {
-    padding: 14px 16px;
-    font-size: 1.1rem;
+    width: 100px;
+    padding: 14px 8px;
+    font-size: 0.95rem;
   }
   .small-button {
     font-size: 0.95rem;
