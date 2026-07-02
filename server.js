@@ -269,11 +269,25 @@ app.post(
       title,
       enteredBy,
       isAdmin: admin,
+      completed: false,
       date: new Date().toISOString(),
     };
     entries.push(entry);
     await writeData('future', entries);
     res.status(201).json(entry);
+  })
+);
+
+app.patch(
+  '/api/future/:id/toggle-complete',
+  requireAdmin,
+  asyncHandler(async (req, res) => {
+    const entries = await readData('future', []);
+    const entry = entries.find((e) => e.id === req.params.id);
+    if (!entry) return res.status(404).json({ error: 'Entry not found.' });
+    entry.completed = !entry.completed;
+    await writeData('future', entries);
+    res.json(entry);
   })
 );
 

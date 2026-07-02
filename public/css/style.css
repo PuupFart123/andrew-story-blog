@@ -501,6 +501,11 @@ input, textarea, select, button {
   font-style: italic;
 }
 
+.future-completed {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
 .empty-state {
   text-align: center;
   color: #888;

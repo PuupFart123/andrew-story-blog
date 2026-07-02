@@ -15,15 +15,18 @@ function categoryLabel(category) {
 }
 
 function renderEntry(entry) {
-  const deleteButton = isAdmin
-    ? `<button type="button" class="delete-btn delete-future-btn">Delete</button>`
+  const adminButtons = isAdmin
+    ? `
+      <button type="button" class="delete-btn toggle-complete-btn">${entry.completed ? 'Mark unfinished' : 'Mark finished'}</button>
+      <button type="button" class="delete-btn delete-future-btn">Delete</button>
+    `
     : '';
   return `
     <div class="ranking-row future-row" data-entry-id="${entry.id}">
       <span class="rank-rating future-category">${categoryLabel(entry.category)}</span>
-      <span class="rank-title">${escapeHTML(entry.title)}</span>
+      <span class="rank-title${entry.completed ? ' future-completed' : ''}">${escapeHTML(entry.title)}</span>
       <span class="future-entered-by">added by ${escapeHTML(entry.enteredBy)}</span>
-      ${deleteButton}
+      ${adminButtons}
     </div>
   `;
 }
@@ -45,6 +48,14 @@ async function loadFuture() {
       const entryId = btn.closest('.future-row').dataset.entryId;
       if (!confirm('Delete this entry? This cannot be undone.')) return;
       const res = await fetch(`/api/future/${entryId}`, { method: 'DELETE' });
+      if (res.ok) loadFuture();
+    });
+  });
+
+  container.querySelectorAll('.toggle-complete-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const entryId = btn.closest('.future-row').dataset.entryId;
+      const res = await fetch(`/api/future/${entryId}/toggle-complete`, { method: 'PATCH' });
       if (res.ok) loadFuture();
     });
   });
