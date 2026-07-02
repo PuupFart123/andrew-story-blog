@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!canvas) return;
 
   const result = createMeshGradient(canvas, {
-    colors: ['#2c2c54', '#91efb1', '#7371fc', '#abe6e6', '#ff8aa6', '#92caa5'],
+    colors: ['#a40e4c', '#91efb1', '#7371fc', '#abe6e6', '#ff8aa6', '#92caa5'],
     numPoints: 6,
   });
 
