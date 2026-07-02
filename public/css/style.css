@@ -6,7 +6,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
-  color: #2b2b2b;
+  color: #2c2c54;
   background: linear-gradient(135deg, #fdf6dd 0%, #f7e9e2 30%, #f6d9e3 55%, #f3e3ea 75%, #eef1e8 100%);
   background-attachment: fixed;
 }
@@ -82,6 +82,7 @@ a {
 .site-title {
   font-size: 1.6rem;
   font-weight: 600;
+  color: #7371fc;
   display: inline-block;
   transition: transform 0.15s ease;
 }
@@ -113,7 +114,7 @@ a {
 }
 
 .nav-pill.active {
-  background: rgba(247, 184, 200, 0.45);
+  background: rgba(255, 138, 166, 0.45);
 }
 
 /* Hero */
@@ -160,7 +161,7 @@ a {
   justify-content: center;
   width: 200px;
   padding: 26px 16px;
-  background: rgba(246, 185, 203, 0.45);
+  background: rgba(255, 138, 166, 0.45);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -173,9 +174,9 @@ a {
 }
 
 .big-button:hover {
-  background: rgba(246, 185, 203, 0.6);
+  background: rgba(255, 138, 166, 0.6);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(237, 166, 188, 0.35);
+  box-shadow: 0 8px 20px rgba(255, 138, 166, 0.35);
 }
 
 .small-button {
@@ -209,7 +210,7 @@ a {
 
 .page-heading p {
   font-size: 1.1rem;
-  color: #555;
+  color: #a40e4c;
 }
 
 /* Blog posts */
@@ -267,7 +268,7 @@ a {
 }
 
 .post-meta {
-  color: #7a5f6a;
+  color: #a40e4c;
   font-size: 0.95rem;
   margin-bottom: 14px;
 }
@@ -287,7 +288,7 @@ a {
 .comments h4 {
   margin: 0 0 10px;
   font-size: 1rem;
-  color: #555;
+  color: #a40e4c;
 }
 
 .comment {
@@ -327,7 +328,7 @@ input, textarea, select, button {
 
 .field label {
   font-size: 0.9rem;
-  color: #555;
+  color: #a40e4c;
 }
 
 .field input,
@@ -343,7 +344,7 @@ input, textarea, select, button {
   padding: 10px 20px;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  background: rgba(246, 185, 203, 0.55);
+  background: rgba(255, 138, 166, 0.55);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   cursor: pointer;
@@ -352,7 +353,7 @@ input, textarea, select, button {
 }
 
 .btn:hover {
-  background: rgba(237, 166, 188, 0.7);
+  background: rgba(255, 138, 166, 0.7);
 }
 
 .btn-secondary {
@@ -370,7 +371,7 @@ input, textarea, select, button {
   margin: 0 auto 40px;
   padding: 24px 28px;
   background: rgba(255, 255, 255, 0.6);
-  border: 1px dashed #d99cb2;
+  border: 1px dashed #ff8aa6;
   border-radius: 18px;
 }
 
@@ -409,7 +410,7 @@ input, textarea, select, button {
 }
 
 .admin-bar button {
-  background: rgba(246, 185, 203, 0.7);
+  background: rgba(255, 138, 166, 0.7);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: none;
@@ -439,10 +440,10 @@ input, textarea, select, button {
 }
 
 .sort-btn.active {
-  background: rgba(246, 185, 203, 0.55);
+  background: rgba(255, 138, 166, 0.55);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-color: rgba(237, 166, 188, 0.6);
+  border-color: rgba(255, 138, 166, 0.6);
 }
 
 .ranking-list {
@@ -470,12 +471,12 @@ input, textarea, select, button {
 
 .ranking-row .rank-rating {
   font-weight: 700;
-  color: #2b2b2b;
+  color: #2c2c54;
 }
 
 .ranking-count {
   text-align: center;
-  color: #7a5f6a;
+  color: #a40e4c;
   font-size: 0.95rem;
   margin: 0;
 }
@@ -489,7 +490,7 @@ input, textarea, select, button {
 
 .future-entered-by {
   flex-shrink: 0;
-  color: #7a5f6a;
+  color: #a40e4c;
   font-size: 0.9rem;
   font-style: italic;
 }
@@ -501,7 +502,7 @@ input, textarea, select, button {
 
 .empty-state {
   text-align: center;
-  color: #888;
+  color: #a40e4c;
   padding: 40px 0;
 }
 
