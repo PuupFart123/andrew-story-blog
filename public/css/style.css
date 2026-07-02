@@ -255,16 +255,16 @@ a {
   flex-shrink: 0;
   padding: 5px 12px;
   border-radius: 8px;
-  border: 1px solid rgba(163, 50, 74, 0.3);
+  border: 1px solid rgba(44, 44, 84, 0.3);
   background: rgba(255, 255, 255, 0.4);
-  color: #a3324a;
+  color: #2c2c54;
   font-size: 0.8rem;
   cursor: pointer;
   transition: background 0.15s ease;
 }
 
 .delete-btn:hover {
-  background: rgba(163, 50, 74, 0.12);
+  background: rgba(44, 44, 84, 0.12);
 }
 
 .post-meta {
@@ -471,7 +471,7 @@ input, textarea, select, button {
 
 .ranking-row .rank-rating {
   font-weight: 700;
-  color: #2c2c54;
+  color: #7371fc;
 }
 
 .ranking-count {
@@ -531,7 +531,7 @@ input, textarea, select, button {
 }
 
 .modal-error {
-  color: #b3283d;
+  color: #2c2c54;
   font-size: 0.9rem;
   min-height: 1.2em;
 }
