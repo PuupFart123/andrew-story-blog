@@ -1,7 +1,8 @@
-// Drives both books-ranking.html and movies-ranking.html.
-// window.RANKING_TYPE is set to 'book' or 'movie' before this script runs.
+// Drives books-ranking.html, movies-ranking.html, and short-stories-ranking.html.
+// window.RANKING_TYPE is set to 'book', 'movie', or 'story' before this script runs.
 
 const RANKING_TYPE = window.RANKING_TYPE;
+const RANKING_LABELS = { book: 'Book', movie: 'Movie', story: 'Short story' };
 let currentSort = 'recency';
 let isAdmin = false;
 
@@ -58,7 +59,7 @@ function setupSortButtons() {
 
 function renderAdminForm() {
   const panel = document.getElementById('admin-panel');
-  const label = RANKING_TYPE === 'book' ? 'Book' : 'Movie';
+  const label = RANKING_LABELS[RANKING_TYPE] || 'Title';
   panel.innerHTML = `
     <h3>Add a new ranking entry</h3>
     <form id="new-ranking-form">

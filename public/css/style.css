@@ -155,6 +155,12 @@ a {
   align-items: flex-start;
 }
 
+.secondary-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
 .big-button {
   display: flex;
   align-items: center;

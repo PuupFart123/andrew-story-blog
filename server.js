@@ -202,7 +202,7 @@ app.post(
   asyncHandler(async (req, res) => {
     const { type, title, rating } = req.body || {};
     const numericRating = Number(rating);
-    if (!type || !['book', 'movie'].includes(type) || !title || Number.isNaN(numericRating)) {
+    if (!type || !['book', 'movie', 'story'].includes(type) || !title || Number.isNaN(numericRating)) {
       return res.status(400).json({ error: 'Missing required fields.' });
     }
     if (numericRating < 0 || numericRating > 1000) {
