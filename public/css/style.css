@@ -210,7 +210,7 @@ a {
 
 .page-heading p {
   font-size: 1.1rem;
-  color: #a40e4c;
+  color: #2c2c54;
 }
 
 /* Blog posts */
@@ -268,7 +268,7 @@ a {
 }
 
 .post-meta {
-  color: #a40e4c;
+  color: #2c2c54;
   font-size: 0.95rem;
   margin-bottom: 14px;
 }
@@ -288,7 +288,7 @@ a {
 .comments h4 {
   margin: 0 0 10px;
   font-size: 1rem;
-  color: #a40e4c;
+  color: #2c2c54;
 }
 
 .comment {
@@ -328,7 +328,7 @@ input, textarea, select, button {
 
 .field label {
   font-size: 0.9rem;
-  color: #a40e4c;
+  color: #2c2c54;
 }
 
 .field input,
@@ -476,7 +476,7 @@ input, textarea, select, button {
 
 .ranking-count {
   text-align: center;
-  color: #a40e4c;
+  color: #2c2c54;
   font-size: 0.95rem;
   margin: 0;
 }
@@ -490,7 +490,7 @@ input, textarea, select, button {
 
 .future-entered-by {
   flex-shrink: 0;
-  color: #a40e4c;
+  color: #2c2c54;
   font-size: 0.9rem;
   font-style: italic;
 }
@@ -502,7 +502,7 @@ input, textarea, select, button {
 
 .empty-state {
   text-align: center;
-  color: #a40e4c;
+  color: #2c2c54;
   padding: 40px 0;
 }
 
