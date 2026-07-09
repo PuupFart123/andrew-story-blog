@@ -9,7 +9,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const { readData, writeData } = require('./lib/store');
 const { savePhoto } = require('./lib/photoStorage');
-const { notifySubscribers } = require('./lib/mailer');
+const { notifySubscribers, sendWelcomeEmail } = require('./lib/mailer');
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -196,14 +196,20 @@ app.post(
     if (subscribers.some((s) => s.email === email)) {
       return res.json({ ok: true, message: "You're already subscribed." });
     }
+    const token = uuidv4();
     subscribers.push({
       id: uuidv4(),
       email,
-      token: uuidv4(),
+      token,
       createdAt: new Date().toISOString(),
     });
     await writeData('subscribers', subscribers);
     res.status(201).json({ ok: true, message: "Subscribed! You'll get an email for new reviews." });
+
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    sendWelcomeEmail({ email, token, baseUrl }).catch((err) =>
+      console.error('Failed to send welcome email:', err)
+    );
   })
 );
 
