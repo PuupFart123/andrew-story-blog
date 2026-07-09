@@ -9,6 +9,9 @@ const { v4: uuidv4 } = require('uuid');
 
 const { readData, writeData } = require('./lib/store');
 const { savePhoto } = require('./lib/photoStorage');
+const { notifySubscribers } = require('./lib/mailer');
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const DEFAULT_ADMIN_USERNAME = 'andrew';
 const DEFAULT_ADMIN_PASSWORD = 'andrew123';
@@ -142,6 +145,12 @@ app.post(
     posts.push(post);
     await writeData('posts', posts);
     res.status(201).json(post);
+
+    const subscribers = await readData('subscribers', []);
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    notifySubscribers({ subscribers, post, baseUrl }).catch((err) =>
+      console.error('Failed to notify subscribers:', err)
+    );
   })
 );
 
@@ -171,6 +180,53 @@ app.delete(
     }
     await writeData('posts', remaining);
     res.json({ ok: true });
+  })
+);
+
+// ---------- Mailing list ----------
+
+app.post(
+  '/api/subscribe',
+  asyncHandler(async (req, res) => {
+    const email = String((req.body && req.body.email) || '').trim().toLowerCase();
+    if (!email || !EMAIL_RE.test(email)) {
+      return res.status(400).json({ error: 'Please enter a valid email address.' });
+    }
+    const subscribers = await readData('subscribers', []);
+    if (subscribers.some((s) => s.email === email)) {
+      return res.json({ ok: true, message: "You're already subscribed." });
+    }
+    subscribers.push({
+      id: uuidv4(),
+      email,
+      token: uuidv4(),
+      createdAt: new Date().toISOString(),
+    });
+    await writeData('subscribers', subscribers);
+    res.status(201).json({ ok: true, message: "Subscribed! You'll get an email for new reviews." });
+  })
+);
+
+app.get(
+  '/api/unsubscribe',
+  asyncHandler(async (req, res) => {
+    const { token } = req.query;
+    const subscribers = await readData('subscribers', []);
+    const remaining = subscribers.filter((s) => s.token !== token);
+    if (remaining.length !== subscribers.length) {
+      await writeData('subscribers', remaining);
+    }
+    res
+      .status(200)
+      .type('html')
+      .send(
+        '<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>Unsubscribed</title></head>' +
+          '<body style="font-family: Georgia, serif; text-align: center; padding: 80px 20px;">' +
+          '<h1>You\'ve been unsubscribed.</h1>' +
+          '<p>You will no longer receive review notifications from Andrew\'s Story Blog.</p>' +
+          '<p><a href="/">Back to the site</a></p>' +
+          '</body></html>'
+      );
   })
 );
 

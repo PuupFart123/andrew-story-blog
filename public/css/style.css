@@ -120,6 +120,14 @@ a:active {
   background: rgba(255, 138, 166, 0.45);
 }
 
+/* Mailing list */
+
+.subscribe-message {
+  font-size: 0.9rem;
+  color: #2c2c54;
+  min-height: 1.2em;
+}
+
 /* Hero */
 
 .hero {
