@@ -144,13 +144,12 @@ app.post(
     };
     posts.push(post);
     await writeData('posts', posts);
-    res.status(201).json(post);
 
     const subscribers = await readData('subscribers', []);
     const baseUrl = `${req.protocol}://${req.get('host')}`;
-    notifySubscribers({ subscribers, post, baseUrl }).catch((err) =>
-      console.error('Failed to notify subscribers:', err)
-    );
+    await notifySubscribers({ subscribers, post, baseUrl });
+
+    res.status(201).json(post);
   })
 );
 
@@ -204,12 +203,11 @@ app.post(
       createdAt: new Date().toISOString(),
     });
     await writeData('subscribers', subscribers);
-    res.status(201).json({ ok: true, message: "Subscribed! You'll get an email for new reviews." });
 
     const baseUrl = `${req.protocol}://${req.get('host')}`;
-    sendWelcomeEmail({ email, token, baseUrl }).catch((err) =>
-      console.error('Failed to send welcome email:', err)
-    );
+    await sendWelcomeEmail({ email, token, baseUrl });
+
+    res.status(201).json({ ok: true, message: "Subscribed! You'll get an email for new reviews." });
   })
 );
 
