@@ -10,8 +10,21 @@ const { v4: uuidv4 } = require('uuid');
 const { readData, writeData } = require('./lib/store');
 const { savePhoto } = require('./lib/photoStorage');
 const { notifySubscribers, sendWelcomeEmail } = require('./lib/mailer');
+const { waitUntil } = require('@vercel/functions');
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Keeps the serverless function alive long enough to finish a background
+// email send after the response has already gone out to the client, instead
+// of either blocking the response on it or letting the platform freeze the
+// function mid-send.
+function runInBackground(promise) {
+  try {
+    waitUntil(promise);
+  } catch {
+    // Not running inside a Vercel Function (e.g. local dev) — let it run normally.
+  }
+}
 
 const DEFAULT_ADMIN_USERNAME = 'andrew';
 const DEFAULT_ADMIN_PASSWORD = 'andrew123';
@@ -144,12 +157,11 @@ app.post(
     };
     posts.push(post);
     await writeData('posts', posts);
+    res.status(201).json(post);
 
     const subscribers = await readData('subscribers', []);
     const baseUrl = `${req.protocol}://${req.get('host')}`;
-    await notifySubscribers({ subscribers, post, baseUrl });
-
-    res.status(201).json(post);
+    runInBackground(notifySubscribers({ subscribers, post, baseUrl }));
   })
 );
 
@@ -203,11 +215,10 @@ app.post(
       createdAt: new Date().toISOString(),
     });
     await writeData('subscribers', subscribers);
+    res.status(201).json({ ok: true, message: "Subscribed! You'll get an email for new reviews." });
 
     const baseUrl = `${req.protocol}://${req.get('host')}`;
-    await sendWelcomeEmail({ email, token, baseUrl });
-
-    res.status(201).json({ ok: true, message: "Subscribed! You'll get an email for new reviews." });
+    runInBackground(sendWelcomeEmail({ email, token, baseUrl }));
   })
 );
 
