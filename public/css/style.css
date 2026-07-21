@@ -290,6 +290,32 @@ a:active {
   white-space: pre-wrap;
 }
 
+.spoiler-toggle {
+  background: #2c2c54;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+.spoiler-content {
+  display: none;
+}
+
+.spoiler.revealed .spoiler-toggle {
+  background: #999;
+}
+
+.spoiler.revealed .spoiler-content {
+  display: inline;
+  background: rgba(255, 214, 0, 0.3);
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
 .comments {
   margin-top: 22px;
   border-top: 1px solid rgba(0, 0, 0, 0.08);

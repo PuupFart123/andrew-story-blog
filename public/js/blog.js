@@ -11,6 +11,22 @@ function escapeHTML(str) {
   return div.innerHTML;
 }
 
+function renderReviewWithSpoilers(text) {
+  const regex = /\[spoiler\]([\s\S]*?)\[\/spoiler\]/gi;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+  while ((match = regex.exec(text)) !== null) {
+    parts.push(escapeHTML(text.slice(lastIndex, match.index)));
+    parts.push(
+      `<span class="spoiler"><button type="button" class="spoiler-toggle">Show spoiler</button><span class="spoiler-content">${escapeHTML(match[1])}</span></span>`
+    );
+    lastIndex = regex.lastIndex;
+  }
+  parts.push(escapeHTML(text.slice(lastIndex)));
+  return parts.join('');
+}
+
 function formatDate(dateStr) {
   const d = new Date(dateStr);
   if (Number.isNaN(d.getTime())) return dateStr;
@@ -45,7 +61,7 @@ function renderPost(post) {
         ${deleteButton}
       </div>
       <div class="post-meta">${CREATOR_LABEL}: ${escapeHTML(post.creator)} &middot; ${formatDate(post.date)}</div>
-      <div class="post-review">${escapeHTML(post.review)}</div>
+      <div class="post-review">${renderReviewWithSpoilers(post.review)}</div>
       <div class="comments">
         <h4>Comments</h4>
         <div class="comment-list">${comments}</div>
@@ -77,6 +93,14 @@ async function loadPosts() {
       if (!confirm('Delete this review? This cannot be undone.')) return;
       const res = await fetch(`/api/posts/${postId}`, { method: 'DELETE' });
       if (res.ok) loadPosts();
+    });
+  });
+
+  container.querySelectorAll('.spoiler-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const spoiler = btn.closest('.spoiler');
+      const revealed = spoiler.classList.toggle('revealed');
+      btn.textContent = revealed ? 'Hide spoiler' : 'Show spoiler';
     });
   });
 
@@ -122,7 +146,7 @@ function renderAdminForm() {
       </div>
       <div class="field">
         <label for="post-review">Review</label>
-        <textarea id="post-review" name="review" rows="6" required></textarea>
+        <textarea id="post-review" name="review" rows="6" required placeholder="Wrap text in [spoiler]...[/spoiler] to hide it behind a reveal button"></textarea>
       </div>
       <div class="field">
         <label for="post-photo">Photo</label>
